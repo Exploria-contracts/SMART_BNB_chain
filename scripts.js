@@ -1,23 +1,20 @@
-// Handle contract form submission
+// Step 1: Handle contract form submission
 document.getElementById('contractForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  // Hide just the form container, not the whole main content
+  // Hide just the form container
   document.querySelector('.form-container').style.display = 'none';
 
   // Show contract recommendations
   document.getElementById('contractRecommendations').style.display = 'block';
 });
 
-// Dynamically show additional input based on selected contract type
+// Step 2: Show additional input fields based on contract type
 document.getElementById('contractType').addEventListener('change', function() {
   const contractType = this.value;
   const relatedQuestionDiv = document.getElementById('relatedQuestion');
-
-  // Clear previous question
   relatedQuestionDiv.innerHTML = '';
 
-  // Add input fields based on contract type
   if (contractType === 'erc20') {
     relatedQuestionDiv.innerHTML = `
       <label for="tokenSupply">What is the total supply of your token?</label>
@@ -41,13 +38,25 @@ document.getElementById('contractType').addEventListener('change', function() {
   }
 });
 
-// Handle selection of a recommended contract
+// Step 3: Handle "Choose This" click
 document.querySelectorAll('.chooseContract').forEach(function(button) {
   button.addEventListener('click', function() {
-    // Hide contract recommendations
+    // Hide recommendations
     document.getElementById('contractRecommendations').style.display = 'none';
 
-    // Show payment section
-    document.getElementById('paymentSection').style.display = 'block';
+    // Show payment step with BTC QR code
+    const btcAddress = 'bc1q6fs0sy2p53xx0ewjtun6mhkuk8ulclngy6jldv';
+    const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:${btcAddress}`;
+
+    const paymentSection = document.getElementById('paymentSection');
+    paymentSection.innerHTML = `
+      <h2>Payment Instructions</h2>
+      <p><strong>Network:</strong> BTC</p>
+      <p><strong>Address:</strong> <span class="payment-address">${btcAddress}</span></p>
+      <img src="${qrURL}" alt="BTC QR Code">
+      <div class="loader"></div>
+      <p>Awaiting payment confirmation...</p>
+    `;
+    paymentSection.style.display = 'block';
   });
 });
