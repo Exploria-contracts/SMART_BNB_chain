@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crypto Contracts Hub</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-animation"></div>
+
+  <header>
+    <h1 class="glow">Crypto Contracts Hub</h1>
+    <p>Launch your smart contract in minutes</p>
+  </header>
+
+  <main class="main-content animated-entry">
+    <section class="form-container">
+      <h2>Configure Your Smart Contract</h2>
+      <form id="contractForm">
+        <div class="form-group">
+          <label for="network">Select Network</label>
+          <select id="network" name="network">
+            <option value="ethereum">Ethereum</option>
+            <option value="bnb">BNB Chain</option>
+            <option value="polygon">Polygon</option>
+            <option value="avalanche">Avalanche</option>
+            <option value="solana">Solana</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contractType">Select Smart Contract Type</label>
+          <select id="contractType" name="contractType">
+            <option value="erc20">Token Contract (ERC-20)</option>
+            <option value="erc721">NFT Contract (ERC-721)</option>
+            <option value="dao">DAO Contract</option>
+            <option value="staking">Staking Contract</option>
+            <option value="ico">ICO/IDO Contract</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="relatedQuestion"></div>
+
+        <div class="form-group">
+          <label for="walletAddress">Your Wallet Address</label>
+          <input type="text" id="walletAddress" name="walletAddress" placeholder="Enter your wallet address" required>
+        </div>
+
+        <button type="submit" id="proceedBtn">Proceed</button>
+      </form>
+    </section>
+
+    <section id="contractRecommendations" style="display:none;">
+      <h2>Recommended Contracts</h2>
+      <div class="card">
+        <h3>Basic ERC-20 Token</h3>
+        <p>Audited • Gas Efficient</p>
+        <p>2 ETH</p>
+        <button class="chooseContract">Choose This</button>
+      </div>
+      <div class="card">
+        <h3>Advanced NFT Contract</h3>
+        <p>Unlimited NFTs • Mintable</p>
+        <p>3 ETH</p>
+        <button class="chooseContract">Choose This</button>
+      </div>
+      <div class="card">
+        <h3>Staking Contract</h3>
+        <p>Yield Farming • Auto-Stake</p>
+        <p>1.5 ETH</p>
+        <button class="chooseContract">Choose This</button>
+      </div>
+    </section>
+
+    <section id="paymentSection" style="display:none;">
+      <h2>Payment Instructions</h2>
+      <p>Send <strong>2 ETH</strong> to:</p>
+      <p class="payment-address">hbsufbsihfiejsofjiefoksepf</p>
+      <div class="loader"></div>
+      <p>Awaiting payment confirmation...</p>
+    </section>
+  </main>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
