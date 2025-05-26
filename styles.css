@@ -137,6 +137,7 @@ button:hover {
   font-size: 1.2rem;
   color: #00ffff;
   margin: 10px 0;
+  word-break: break-all;
 }
 
 .loader {
@@ -152,4 +153,11 @@ button:hover {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+#paymentSection img {
+  display: block;
+  margin: 20px auto;
+  border: 2px solid cyan;
+  border-radius: 8px;
 }
