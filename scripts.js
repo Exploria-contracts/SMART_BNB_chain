@@ -1,11 +1,15 @@
+// Handle contract form submission
 document.getElementById('contractForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
+  // Hide just the form container, not the whole main content
+  document.querySelector('.form-container').style.display = 'none';
+
   // Show contract recommendations
-  document.querySelector('.main-content').style.display = 'none';
   document.getElementById('contractRecommendations').style.display = 'block';
 });
 
+// Dynamically show additional input based on selected contract type
 document.getElementById('contractType').addEventListener('change', function() {
   const contractType = this.value;
   const relatedQuestionDiv = document.getElementById('relatedQuestion');
@@ -13,6 +17,7 @@ document.getElementById('contractType').addEventListener('change', function() {
   // Clear previous question
   relatedQuestionDiv.innerHTML = '';
 
+  // Add input fields based on contract type
   if (contractType === 'erc20') {
     relatedQuestionDiv.innerHTML = `
       <label for="tokenSupply">What is the total supply of your token?</label>
@@ -36,9 +41,13 @@ document.getElementById('contractType').addEventListener('change', function() {
   }
 });
 
+// Handle selection of a recommended contract
 document.querySelectorAll('.chooseContract').forEach(function(button) {
   button.addEventListener('click', function() {
+    // Hide contract recommendations
     document.getElementById('contractRecommendations').style.display = 'none';
+
+    // Show payment section
     document.getElementById('paymentSection').style.display = 'block';
   });
 });
