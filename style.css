@@ -1,3 +1,109 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0d0d0d;
+  padding: 20px 40px;
+  border-bottom: 2px solid #8bfefd;
+  box-shadow: 0 0 15px #8bfefd80;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+.logo-title {
+  flex: 1;
+  min-width: 250px;
+}
+
+.logo-title h1 {
+  color: #8bfefd;
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  text-shadow: 0 0 10px #8bfefd;
+}
+
+.slogan {
+  color: #aaa;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.crypto-ticker {
+  overflow: hidden;
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker 15s linear infinite;
+}
+
+.ticker-content span {
+  display: inline-block;
+  margin-right: 40px;
+  font-family: 'Orbitron', sans-serif;
+  color: #8bfefd;
+  font-size: 14px;
+  text-shadow: 0 0 5px #8bfefd;
+  transition: text-shadow 0.3s ease;
+}
+
+.ticker-content span.updated {
+  animation: glow 1s ease-in-out;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 0 #8bfefd; }
+  50% { text-shadow: 0 0 15px #8bfefd; }
+  100% { text-shadow: 0 0 0 #8bfefd; }
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .crypto-ticker {
+    width: 100%;
+    height: auto;
+  }
+
+  .ticker-content {
+    font-size: 12px;
+  }
+
+  .logo-title h1 {
+    font-size: 22px;
+  }
+}
+
+
+
+
+
+
+
+
+
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
