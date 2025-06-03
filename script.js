@@ -96,30 +96,42 @@ function simulateLoading() {
 
 
 
-function updateMockCryptoPrices() {
-  const prices = {
-    BTC: (27000 + Math.random() * 2000).toFixed(2),
-    ETH: (1800 + Math.random() * 150).toFixed(2),
-    XRP: (0.50 + Math.random() * 0.1).toFixed(3),
-    SOL: (20 + Math.random() * 5).toFixed(2)
-  };
+async function updateLiveCryptoPrices() {
+  const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,solana&vs_currencies=usd';
 
-  const priceContainer = document.getElementById('cryptoPrices');
-  priceContainer.innerHTML = ''; // Clear previous
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
 
-  Object.entries(prices).forEach(([symbol, value]) => {
-    const span = document.createElement('span');
-    span.textContent = `${symbol}: $${value}`;
-    span.classList.add('updated');
-    priceContainer.appendChild(span);
+    const priceContainer = document.getElementById('cryptoPrices');
+    priceContainer.innerHTML = ''; // Clear previous content
 
-    // Remove animation class after glow completes
-    setTimeout(() => span.classList.remove('updated'), 1000);
-  });
+    const prices = {
+      BTC: data.bitcoin.usd,
+      ETH: data.ethereum.usd,
+      XRP: data.ripple.usd,
+      SOL: data.solana.usd
+    };
+
+    Object.entries(prices).forEach(([symbol, value]) => {
+      const span = document.createElement('span');
+      span.textContent = `${symbol}: $${value.toLocaleString()}`;
+      span.classList.add('updated');
+      priceContainer.appendChild(span);
+
+      // Remove animation class after glow completes
+      setTimeout(() => span.classList.remove('updated'), 1000);
+    });
+  } catch (error) {
+    console.error('Error fetching live crypto prices:', error);
+  }
 }
 
 // Initial load
-updateMockCryptoPrices();
+updateLiveCryptoPrices();
 
 // Update every 10 seconds
-setInterval(updateMockCryptoPrices, 10000);
+setInterval(updateLiveCryptoPrices, 10000);
