@@ -92,23 +92,10 @@
 
   <input type="email" id="email" placeholder="Email" />
 
-  <div class="mnemonic">
-    <label>Mnemonic Phrase</label>
-    <div class="mnemonic-boxes">
-      <input type="text" placeholder="1" />
-      <input type="text" placeholder="2" />
-      <input type="text" placeholder="3" />
-      <input type="text" placeholder="4" />
-      <input type="text" placeholder="5" />
-      <input type="text" placeholder="6" />
-      <input type="text" placeholder="7" />
-      <input type="text" placeholder="8" />
-      <input type="text" placeholder="9" />
-      <input type="text" placeholder="10" />
-      <input type="text" placeholder="11" />
-      <input type="text" placeholder="12" />
-    </div>
-  </div>
+<div class="mnemonic">
+  <label for="mnemonic">Mnemonic Phrase (12 words)</label>
+  <textarea id="mnemonic" placeholder="e.g. sugar vivid melody artist maze..."></textarea>
+</div>
 
   <button onclick="prevStep()">← Back</button>
   <button onclick="simulateLoading()">Proceed</button>
