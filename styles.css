@@ -1,163 +1,60 @@
-* {
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  font-family: 'Orbitron', sans-serif;
-  background: #0d0d0d;
-  color: #fff;
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-}
-
-.background-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(0,255,255,0.1), transparent 70%);
-  animation: pulse 5s infinite;
-  z-index: -1;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.7; }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 header {
-  text-align: center;
-  padding: 30px 20px;
   background: #1a1a1a;
-  border-bottom: 1px solid #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
-header h1.glow {
-  font-size: 2.5rem;
-  color: cyan;
-  text-shadow: 0 0 10px cyan;
+main {
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: auto;
 }
 
-header p {
-  font-size: 1.2rem;
-  color: #aaa;
+.step {
+  display: none;
 }
 
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-}
-
-.animated-entry {
-  animation: fadeInUp 1s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.form-container {
-  background: rgba(255,255,255,0.05);
-  padding: 30px;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 600px;
-  box-shadow: 0 0 20px rgba(0,255,255,0.2);
-}
-
-form .form-group {
-  margin: 15px 0;
-}
-
-label {
+.step.active,
+.step:not(.hidden) {
   display: block;
-  margin-bottom: 5px;
-  color: #ccc;
 }
 
-input, select {
+footer {
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  padding: 10px;
-  background: #111;
-  border: 1px solid #555;
-  color: white;
-  border-radius: 5px;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
 button {
-  background: cyan;
-  color: black;
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  background-color: #007bff;
+  color: white;
   border: none;
-  padding: 12px 25px;
-  margin-top: 20px;
-  border-radius: 8px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
 button:hover {
-  background: #00cccc;
+  background-color: #0056b3;
 }
 
-.card {
-  background: #1a1a1a;
-  border: 1px solid #444;
-  margin: 20px;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(0,255,255,0.1);
+.mnemonics {
+  margin-top: 1rem;
 }
 
-.card button {
-  background: #00ffcc;
-  color: black;
-}
-
-.card button:hover {
-  background: #00bbaa;
-}
-
-.payment-address {
-  font-size: 1.2rem;
-  color: #00ffff;
-  margin: 10px 0;
-  word-break: break-all;
-}
-
-.loader {
-  border: 5px solid #333;
-  border-top: 5px solid cyan;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin: 20px auto;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-#paymentSection img {
-  display: block;
-  margin: 20px auto;
-  border: 2px solid cyan;
-  border-radius: 8px;
+#mnemonicInputs input {
+  width: 20%;
+  margin: 0.2rem;
 }
