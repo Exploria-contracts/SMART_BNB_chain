@@ -114,8 +114,8 @@ body {
 
 .container {
   max-width: 600px;
-  margin: 60px auto;
-  padding: 30px;
+  margin: 60px 200px;
+  padding: 65px;
   background: rgba(10, 10, 10, 0.85);
   border: 2px solid #8bfefd;
   box-shadow: 0 0 20px #8bfefd;
