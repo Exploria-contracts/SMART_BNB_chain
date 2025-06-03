@@ -90,8 +90,5 @@ function copyAddress() {
 
 function simulateLoading() {
   document.querySelector('.loading').textContent = 'Waiting for payment…';
-  nextStep();
-  setTimeout(() => {
-    document.querySelector('.loading').textContent = 'Payment received!';
-  }, 60000); // Simulates 1 minute wait
+  nextStep(); // Move to payment step
 }
