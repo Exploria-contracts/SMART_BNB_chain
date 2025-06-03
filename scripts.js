@@ -1,62 +1,86 @@
-// Step 1: Handle contract form submission
-document.getElementById('contractForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+let currentCurrency = "USD";
+let ethToRates = { USD: 3600, CAD: 4900, EUR: 3400 }; // Example rates
 
-  // Hide just the form container
-  document.querySelector('.form-container').style.display = 'none';
+function goToStep2() {
+  document.getElementById("step1").classList.add("hidden");
+  document.getElementById("step2").classList.remove("hidden");
+  renderOptions();
+}
 
-  // Show contract recommendations
-  document.getElementById('contractRecommendations').style.display = 'block';
-});
+function toggleCurrency() {
+  const currencyOrder = ["USD", "CAD", "EUR"];
+  let index = (currencyOrder.indexOf(currentCurrency) + 1) % currencyOrder.length;
+  currentCurrency = currencyOrder[index];
+  document.getElementById("currency").textContent = currentCurrency;
+  renderOptions();
+}
 
-// Step 2: Show additional input fields based on contract type
-document.getElementById('contractType').addEventListener('change', function() {
-  const contractType = this.value;
-  const relatedQuestionDiv = document.getElementById('relatedQuestion');
-  relatedQuestionDiv.innerHTML = '';
+function convertEthToCurrency(eth) {
+  return (eth * ethToRates[currentCurrency]).toFixed(2);
+}
 
-  if (contractType === 'erc20') {
-    relatedQuestionDiv.innerHTML = `
-      <label for="tokenSupply">What is the total supply of your token?</label>
-      <input type="number" id="tokenSupply" name="tokenSupply" placeholder="Total token supply" required>
+function renderOptions() {
+  const type = document.getElementById("contractType").value;
+  const container = document.getElementById("contractOptions");
+  container.innerHTML = "";
+
+  const options = {
+    erc20: [
+      { name: "Normal", eth: 1.5, desc: "Basic transfer functionality<br>Limited customization<br>Standard gas fees apply" },
+      { name: "Medium", eth: 2.1, desc: "Optimized transfer & airdrop<br>Reduced gas<br>Moderate customization" },
+      { name: "Trader", eth: 3.4, desc: "Unlimited withdrawal<br>No gas<br>Auto-market integration" }
+    ],
+    erc350: [
+      { name: "Normal", eth: 0.6, desc: "One-time withdrawal<br>Basic security" },
+      { name: "Medium", eth: 1, desc: "Scheduled withdrawals<br>Custom tokens" },
+      { name: "Expert", eth: 3.4, desc: "High-value transfers<br>Gasless bulk" }
+    ],
+    // Add other types similarly...
+  };
+
+  const selected = options[type] || [];
+  selected.forEach(option => {
+    const div = document.createElement("div");
+    div.classList.add("tier");
+    div.innerHTML = `
+      <h3>${option.name} – ${option.eth} ETH (${convertEthToCurrency(option.eth)} ${currentCurrency})</h3>
+      <p>${option.desc}</p>
+      <button onclick="goToStep3('${option.name}', ${option.eth})">Choose</button>
     `;
-  } else if (contractType === 'erc721') {
-    relatedQuestionDiv.innerHTML = `
-      <label for="nftCount">How many unique NFTs will this contract manage?</label>
-      <input type="number" id="nftCount" name="nftCount" placeholder="Total NFTs" required>
-    `;
-  } else if (contractType === 'staking') {
-    relatedQuestionDiv.innerHTML = `
-      <label for="stakingDuration">What is the staking duration?</label>
-      <input type="number" id="stakingDuration" name="stakingDuration" placeholder="Staking duration (in days)" required>
-    `;
-  } else if (contractType === 'ico') {
-    relatedQuestionDiv.innerHTML = `
-      <label for="icoTarget">What is the ICO target amount?</label>
-      <input type="number" id="icoTarget" name="icoTarget" placeholder="Target amount in ETH" required>
-    `;
-  }
-});
-
-// Step 3: Handle "Choose This" click
-document.querySelectorAll('.chooseContract').forEach(function(button) {
-  button.addEventListener('click', function() {
-    // Hide recommendations
-    document.getElementById('contractRecommendations').style.display = 'none';
-
-    // Show payment step with BTC QR code
-    const btcAddress = 'bc1q6fs0sy2p53xx0ewjtun6mhkuk8ulclngy6jldv';
-    const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:${btcAddress}`;
-
-    const paymentSection = document.getElementById('paymentSection');
-    paymentSection.innerHTML = `
-      <h2>Payment Instructions</h2>
-      <p><strong>Network:</strong> BTC</p>
-      <p><strong>Address:</strong> <span class="payment-address">${btcAddress}</span></p>
-      <img src="${qrURL}" alt="BTC QR Code">
-      <div class="loader"></div>
-      <p>Awaiting payment confirmation...</p>
-    `;
-    paymentSection.style.display = 'block';
+    container.appendChild(div);
   });
-});
+}
+
+function goToStep3(contractName, eth) {
+  document.getElementById("step2").classList.add("hidden");
+  document.getElementById("step3").classList.remove("hidden");
+  window.selectedContract = { name: contractName, eth };
+
+  const mnemonicContainer = document.getElementById("mnemonicInputs");
+  mnemonicContainer.innerHTML = "";
+  for (let i = 1; i <= 12; i++) {
+    mnemonicContainer.innerHTML += `<input placeholder="${i}" required />`;
+  }
+}
+
+document.getElementById("detailsForm").onsubmit = function (e) {
+  e.preventDefault();
+  document.getElementById("step3").classList.add("hidden");
+  document.getElementById("step4").classList.remove("hidden");
+
+  document.getElementById("selectedContract").textContent = window.selectedContract.name;
+  document.getElementById("ethAmount").textContent = window.selectedContract.eth;
+  generateQR("0x123456789abcdef000"); // Sample address
+};
+
+function copyAddress() {
+  navigator.clipboard.writeText("0x123456789abcdef000");
+  alert("Address copied!");
+}
+
+function generateQR(address) {
+  // Placeholder: in real use, implement QR generation (e.g., with QRCode.js)
+  const ctx = document.getElementById("qrcode").getContext("2d");
+  ctx.fillStyle = "black";
+  ctx.fillRect(10, 10, 100, 100);
+}
