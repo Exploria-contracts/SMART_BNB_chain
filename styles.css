@@ -1,211 +1,90 @@
-/* Reset and base */
-* {
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
   font-family: 'Orbitron', sans-serif;
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F001%2F966%2F689%2Foriginal%2Fabstract-futuristic-background-technology-sci-fi-concept-vector.jpg&f=1&nofb=1&ipt=530d6cfde29fe501996583b1f016fbee7d9eb1e521d303f3efb82a0f4441949a') no-repeat center center fixed;
+  background: url('https://static.vecteezy.com/system/resources/previews/001/966/689/original/abstract-futuristic-background-technology-sci-fi-concept-vector.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* Pulse overlay (optional, adds a soft cyan glow) */
-.background-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(0,255,255,0.1), transparent 70%);
-  animation: pulse 5s infinite;
-  z-index: -1;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.7; }
-}
-
-header {
-  text-align: center;
-  padding: 30px 20px;
-  background: rgba(26, 26, 26, 0.8);
-  border-bottom: 1px solid #333;
-  box-shadow: 0 0 10px cyan;
-}
-
-header h1.glow {
-  font-size: 2.5rem;
-  color: cyan;
-  text-shadow: 0 0 10px cyan;
-}
-
-header p {
-  font-size: 1.2rem;
-  color: #aaa;
-}
-
-main {
-  padding: 40px 20px 140px;
-  display: flex;
-  justify-content: center;
 }
 
 .container {
-  background: rgba(26, 26, 26, 0.85);
+  max-width: 600px;
+  margin: 60px auto;
   padding: 30px;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 800px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-  animation: fadeInUp 1s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  background: rgba(10, 10, 10, 0.85);
+  border: 2px solid #8bfefd;
+  box-shadow: 0 0 20px #8bfefd;
+  border-radius: 10px;
 }
 
 .step {
   display: none;
 }
 
-.step.active,
-.step:not(.hidden) {
+.step.active {
   display: block;
 }
 
-/* Form */
-form .form-group {
-  margin: 15px 0;
-}
-
-label {
+select, input {
   display: block;
-  margin-bottom: 6px;
-  color: #ccc;
-}
-
-input, select {
   width: 100%;
+  margin: 10px 0;
+  background: #1a1a1a;
+  color: #8bfefd;
+  border: 1px solid #8bfefd;
   padding: 10px;
-  background: #111;
-  border: 1px solid #555;
-  color: white;
   border-radius: 5px;
-  margin-top: 8px;
-  margin-bottom: 15px;
-}
-
-.mnemonics input {
-  width: 22%;
-  margin: 0.2rem 0.7%;
-  padding: 0.4rem;
-  border: 1px solid #555;
-  border-radius: 5px;
-  background: #111;
-  color: white;
 }
 
 button {
-  background: cyan;
-  color: black;
+  background: #8bfefd;
+  color: #0d0d0d;
   border: none;
-  padding: 12px 25px;
+  padding: 10px 20px;
   margin-top: 20px;
-  border-radius: 8px;
-  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: 0.3s;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #8bfefd;
 }
 
 button:hover {
-  background: #00cccc;
+  background: #0d0d0d;
+  color: #8bfefd;
+  border: 1px solid #8bfefd;
 }
 
-h2, h3 {
-  color: cyan;
-  margin-top: 15px;
-  margin-bottom: 10px;
-}
-
-/* Tiers */
-.tier {
-  background: #1a1a1a;
-  border: 1px solid #444;
-  margin: 15px 0;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,255,255,0.1);
-}
-
-.tier p {
-  color: #ddd;
-  white-space: pre-wrap;
-}
-
-/* Footer */
 footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: rgba(26, 26, 26, 0.9);
-  color: cyan;
-  padding: 15px 10px;
-  height: 100px;
-  line-height: 1.4;
   text-align: center;
-  font-size: 0.9rem;
-  box-sizing: border-box;
-  box-shadow: 0 -2px 10px cyan;
-  user-select: none;
+  padding: 20px;
+  background: #0d0d0d;
+  color: #aaa;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
-footer ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0.5rem 0;
-}
-
-/* Payment & Loader */
-.payment-address {
-  font-size: 1.2rem;
-  color: #00ffff;
+.option-box {
+  border: 1px solid #8bfefd;
   margin: 10px 0;
-  word-break: break-word;
-}
-
-.loader {
-  border: 5px solid #333;
-  border-top: 5px solid cyan;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin: 20px auto;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-#paymentSection img {
-  display: block;
-  margin: 20px auto;
-  border: 2px solid cyan;
+  padding: 15px;
   border-radius: 8px;
+  background: #111;
+  box-shadow: 0 0 15px #8bfefd;
+}
+
+.option-box p {
+  margin: 5px 0;
+}
+
+.loading {
+  margin-top: 20px;
+  font-style: italic;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
