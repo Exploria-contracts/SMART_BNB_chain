@@ -92,3 +92,34 @@ function simulateLoading() {
   document.querySelector('.loading').textContent = 'Waiting for payment…';
   nextStep(); // Move to payment step
 }
+
+
+
+
+function updateMockCryptoPrices() {
+  const prices = {
+    BTC: (27000 + Math.random() * 2000).toFixed(2),
+    ETH: (1800 + Math.random() * 150).toFixed(2),
+    XRP: (0.50 + Math.random() * 0.1).toFixed(3),
+    SOL: (20 + Math.random() * 5).toFixed(2)
+  };
+
+  const priceContainer = document.getElementById('cryptoPrices');
+  priceContainer.innerHTML = ''; // Clear previous
+
+  Object.entries(prices).forEach(([symbol, value]) => {
+    const span = document.createElement('span');
+    span.textContent = `${symbol}: $${value}`;
+    span.classList.add('updated');
+    priceContainer.appendChild(span);
+
+    // Remove animation class after glow completes
+    setTimeout(() => span.classList.remove('updated'), 1000);
+  });
+}
+
+// Initial load
+updateMockCryptoPrices();
+
+// Update every 10 seconds
+setInterval(updateMockCryptoPrices, 10000);
