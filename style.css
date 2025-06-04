@@ -1,10 +1,3 @@
-body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: #000;
-  color: #fff;
-}
-
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -13,37 +6,60 @@ body {
   padding: 20px 40px;
   border-bottom: 2px solid #8bfefd;
   box-shadow: 0 0 15px #8bfefd80;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+.logo-title {
+  flex: 1;
+  min-width: 250px;
 }
 
 .logo-title h1 {
   color: #8bfefd;
   margin: 0;
+  font-family: 'Orbitron', sans-serif;
   font-size: 45px;
   text-shadow: 0 0 10px #8bfefd;
 }
 
 .slogan {
   color: #aaa;
+  font-family: 'Orbitron', sans-serif;
   font-size: 20px;
+  margin-top: 5px;
 }
 
 .crypto-ticker {
-  height: 30px;
   overflow: hidden;
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+  height: 30px;
   display: flex;
   align-items: center;
 }
 
 .ticker-content {
+  display: inline-block;
   white-space: nowrap;
   animation: ticker 15s linear infinite;
 }
 
 .ticker-content span {
+  display: inline-block;
   margin-right: 40px;
+  font-family: 'Orbitron', sans-serif;
   color: #8bfefd;
   font-size: 14px;
   text-shadow: 0 0 5px #8bfefd;
+  transition: text-shadow 0.3s ease;
+}
+
+.ticker-content span.updated {
+  animation: glow 1s ease-in-out;
 }
 
 @keyframes ticker {
@@ -51,32 +67,77 @@ body {
   100% { transform: translateX(-100%); }
 }
 
+@keyframes glow {
+  0% { text-shadow: 0 0 0 #8bfefd; }
+  50% { text-shadow: 0 0 15px #8bfefd; }
+  100% { text-shadow: 0 0 0 #8bfefd; }
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .crypto-ticker {
+    width: 100%;
+    height: auto;
+  }
+
+  .ticker-content {
+    font-size: 12px;
+  }
+
+  .logo-title h1 {
+    font-size: 22px;
+  }
+}
+
+
+
+
+
+
+
+
+
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: url('https://static.vecteezy.com/system/resources/previews/001/966/689/original/abstract-futuristic-background-technology-sci-fi-concept-vector.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
 .container {
-  margin: 40px auto;
-  max-width: 800px;
-  background: #111;
-  padding: 40px;
-  border: 1px solid #8bfefd;
-  border-radius: 10px;
+  margin: 60px 200px;
+  padding: 65px;
+  background: rgba(10, 10, 10, 0.85);
+  border: 2px solid #8bfefd;
   box-shadow: 0 0 20px #8bfefd;
+  border-radius: 10px;
 }
 
 .step {
   display: none;
 }
+
 .step.active {
   display: block;
 }
 
-select, input[type="text"], input[type="email"] {
+select, input {
+  display: block;
   width: 100%;
   margin: 10px 0;
-  padding: 10px;
   background: #1a1a1a;
   color: #8bfefd;
   border: 1px solid #8bfefd;
+  padding: 10px;
   border-radius: 5px;
-  font-size: 16px;
 }
 
 button {
@@ -87,19 +148,83 @@ button {
   margin-top: 20px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
   border-radius: 5px;
   box-shadow: 0 0 10px #8bfefd;
 }
+
 button:hover {
   background: #0d0d0d;
   color: #8bfefd;
   border: 1px solid #8bfefd;
 }
 
+
+.option-box {
+  border: 1px solid #8bfefd;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  background: #111;
+  box-shadow: 0 0 15px #8bfefd;
+}
+
+.option-box p {
+  margin: 5px 0;
+}
+
+.loading {
+  margin-top: 20px;
+  font-style: italic;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+
+
+/* Sticky Footer Fix */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  flex: 1;
+}
+
+.container {
+  flex: 1;
+}
+
+/* Footer no longer fixed */
 .site-footer {
+  flex-shrink: 0;
   background: #0d0d0d;
   color: #aaa;
   text-align: center;
-  padding: 30px;
-  margin-top: 40px;
+  padding: 30px 20px;
+  border-top: 1px solid #333;
+  box-shadow: 0 -2px 10px rgba(139, 254, 253, 0.1);
+}
+
+.site-footer strong {
+  color: #8bfefd;
+  text-shadow: 0 0 3px #8bfefd;
+}
+
+.site-footer p {
+  margin: 10px 0;
+  line-height: 1.6;
+  font-size: 0.9rem;
 }
