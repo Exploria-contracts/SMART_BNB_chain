@@ -18,7 +18,15 @@ function showStep(n) {
 
 function nextStep() {
   if (currentStep === 1) {
-    selectedContractType = document.getElementById('contract-type').value;
+    const contractTypeEl = document.getElementById('contract-type');
+    const selected = contractTypeEl.value;
+
+    if (!selected || selected === 'Select Contract Type') {
+      alert("Please select a contract type.");
+      return;
+    }
+
+    selectedContractType = selected;
     generateOptions(selectedContractType);
   }
   currentStep++;
@@ -45,10 +53,15 @@ function generateOptions(type) {
       { name: "Medium", eth: 1.0, desc: "Scheduled withdrawals\nCustom token support" },
       { name: "Expert", eth: 3.4, desc: "High-value transfers\nGasless bulk withdrawals" }
     ],
-    // Add other contract types here...
+    // Add other contract types here if needed
   };
 
   const selectedOptions = options[type];
+  if (!selectedOptions) {
+    container.innerHTML = "<p>No options available for this contract type.</p>";
+    return;
+  }
+
   selectedOptions.forEach(opt => {
     const box = document.createElement('div');
     box.className = 'option-box';
@@ -76,8 +89,9 @@ function convertETH(eth) {
 }
 
 function updatePrices() {
-  document.querySelectorAll('.converted-price').forEach((el, i) => {
-    const eth = parseFloat(el.parentElement.textContent.split('–')[1].split('ETH')[0].trim());
+  document.querySelectorAll('.converted-price').forEach((el) => {
+    const ethText = el.parentElement.textContent.split('–')[1].split('ETH')[0].trim();
+    const eth = parseFloat(ethText);
     el.textContent = convertETH(eth);
   });
 }
@@ -90,7 +104,7 @@ function copyAddress() {
 
 function simulateLoading() {
   document.querySelector('.loading').textContent = 'Waiting for payment…';
-  nextStep(); // Move to payment step
+  nextStep();
 }
 
 async function updateLiveCryptoPrices() {
@@ -98,13 +112,11 @@ async function updateLiveCryptoPrices() {
 
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
+    if (!response.ok) throw new Error('Network response was not ok');
 
+    const data = await response.json();
     const priceContainer = document.getElementById('cryptoPrices');
-    priceContainer.innerHTML = ''; // Clear previous content
+    priceContainer.innerHTML = '';
 
     const prices = {
       BTC: data.bitcoin.usd,
@@ -118,12 +130,13 @@ async function updateLiveCryptoPrices() {
       span.textContent = `${symbol}: $${value.toLocaleString()}`;
       span.classList.add('updated');
       priceContainer.appendChild(span);
-
-      // Remove animation class after glow completes
       setTimeout(() => span.classList.remove('updated'), 1000);
     });
   } catch (error) {
     console.error('Error fetching live crypto prices:', error);
+  }
+}
 
-::contentReference[oaicite:0]{index=0}
- 
+// Start fetching prices on load
+updateLiveCryptoPrices();
+setInterval(updateLiveCryptoPrices, 30000);
