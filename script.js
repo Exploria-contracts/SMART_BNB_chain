@@ -52,11 +52,11 @@ function generateOptions(type) {
   selectedOptions.forEach(opt => {
     const box = document.createElement('div');
     box.className = 'option-box';
-    box.innerHTML = 
+    box.innerHTML = `
       <h3>${opt.name} – ${opt.eth} ETH (<span class="converted-price">${convertETH(opt.eth)}</span>)</h3>
       <p>${opt.desc.replace(/\n/g, '<br>')}</p>
       <button onclick="selectTier('${opt.name}', ${opt.eth})">Choose</button>
-    ;
+    `;
     container.appendChild(box);
   });
 }
@@ -64,7 +64,7 @@ function generateOptions(type) {
 function selectTier(tier, eth) {
   selectedTier = tier;
   selectedETH = eth;
-  document.getElementById('contract-summary').textContent = ${selectedContractType} – ${selectedTier};
+  document.getElementById('contract-summary').textContent = `${selectedContractType} – ${selectedTier}`;
   document.getElementById('eth-amount').textContent = selectedETH;
   nextStep();
 }
@@ -72,7 +72,7 @@ function selectTier(tier, eth) {
 function convertETH(eth) {
   const currency = document.getElementById('currency').value;
   const rate = rates[currency];
-  return ${(eth * rate).toFixed(2)} ${currency};
+  return `${(eth * rate).toFixed(2)} ${currency}`;
 }
 
 function updatePrices() {
@@ -92,9 +92,6 @@ function simulateLoading() {
   document.querySelector('.loading').textContent = 'Waiting for payment…';
   nextStep(); // Move to payment step
 }
-
-
-
 
 async function updateLiveCryptoPrices() {
   const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,solana&vs_currencies=usd';
@@ -118,7 +115,7 @@ async function updateLiveCryptoPrices() {
 
     Object.entries(prices).forEach(([symbol, value]) => {
       const span = document.createElement('span');
-      span.textContent = ${symbol}: $${value.toLocaleString()};
+      span.textContent = `${symbol}: $${value.toLocaleString()}`;
       span.classList.add('updated');
       priceContainer.appendChild(span);
 
@@ -127,11 +124,6 @@ async function updateLiveCryptoPrices() {
     });
   } catch (error) {
     console.error('Error fetching live crypto prices:', error);
-  }
-}
 
-// Initial load
-updateLiveCryptoPrices();
-
-// Update every 10 seconds
-setInterval(updateLiveCryptoPrices, 10000);
+::contentReference[oaicite:0]{index=0}
+ 
